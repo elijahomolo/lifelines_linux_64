@@ -1,0 +1,51 @@
+{% set name = "lifelines" %}
+
+{% set version = "0.20.1" %}
+{% set sha256 = "cd5ceed44e707eb78e3a3afed3c79b17f0348994d33a9aff5829ee38dba4474a" %}
+
+
+package:
+  name: {{ name }}
+  version: {{ version }}
+
+source:
+  fn: {{ name }}-{{ version }}.tar.gz
+  url: https://github.com/CamDavidsonPilon/{{ name }}/archive/v{{ version }}.tar.gz
+  sha256: {{ sha256 }}
+
+build:
+  number: 0
+  script: python -m pip install --no-deps --ignore-installed .
+
+requirements:
+  build:
+    - python >=3.5
+    - pip
+
+  run:
+    - python >=3.5
+    - setuptools
+    - numpy >=1.14.0
+    - scipy >=1.0
+    - pandas >=0.23.0
+    - matplotlib >=3.0
+    - autograd >=1.2
+    - bottleneck >=1.0
+
+test:
+  imports:
+    - lifelines
+    - lifelines.datasets
+    - lifelines.fitters
+    - lifelines.utils
+
+about:
+  home: https://github.com/CamDavidsonPilon/lifelines
+  license: MIT
+  license_file: LICENSE
+  summary: 'Survival analysis in Python, including Kaplan Meier, Nelson Aalen and regression'
+
+extra:
+  recipe-maintainers:
+    - mariusvniekerk
+    - CamDavidsonPilon
